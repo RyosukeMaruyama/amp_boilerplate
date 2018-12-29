@@ -11,4 +11,4 @@ services:
       - "./:/app"
     user: node
     working_dir: "/app"
-    # command: ash -c "npm install"
+    command: ash -c "npm install && npm run gulp"

@@ -6,7 +6,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const cleanCss = require('gulp-clean-css');
 const runSequence = require('run-sequence');
 const rename = require('gulp-rename');
-const watch = require('gulp-watch');
 
 const paths = {
     src: '.',
@@ -61,7 +60,8 @@ gulp.task('ampdev', gulp.series('styles', 'inject-styles', (callback) => {
    callback();
 }));
 
-gulp.task('default', gulp.series( 'ampdev', () => {
-    // gulp.watch([`${paths.src}/**/*.+(html|scss|js|jpg|jpeg|JPG|gif|GIF|png|PNG)`, `!index.amp.html`, '!./node_modules/**/*'], ['ampdev']);
-    return watch([`${paths.src}/**/*.+(html|scss|js|jpg|jpeg|JPG|gif|GIF|png|PNG)`, `!index.amp.html`, '!./node_modules/**/*'], 'ampdev');
+gulp.task('default', gulp.series('ampdev', (callback) => {
+    gulp.watch('./css/**/*.scss', gulp.series('ampdev'));
+    gulp.watch('./index.amp_base.html', gulp.series('ampdev'));
+    callback();
 }));
