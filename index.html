@@ -1,0 +1,164 @@
+<!doctype html>
+<html ⚡ lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="This is the AMP Boilerplate.">
+    <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
+    <link rel="preconnect dns-prefetch" href="https://fonts.gstatic.com/" crossorigin>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <!-- AMP Componet -->
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-twitter" src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"></script>
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+    <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+
+    <!-- Import other AMP Extensions here -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+ 
+    <!-- styles -->
+    <style amp-custom>
+        amp-sidebar {
+            width: 80vw;
+            max-width: 300px;
+        }
+
+        /*  navigation bar */
+        .nav-bar {
+            position: absolute;
+            top: 0;
+            width: 100vw;
+            height: 50px;
+        }
+        .nav-bar i {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* header */
+        .header {
+            height: 280px;
+            width: 100vw;
+        }
+        .header > img {
+            object-fit: cover;
+            width: 100vw;
+            height: 100%;
+        }
+    </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <link rel="canonical" href=".">
+    <title>My AMP Page</title>
+  </head>
+  <body>
+    <amp-sidebar id="sidebar1" layout="nodisplay" side="left">
+        <h1>サイドメニュー</h1>
+        <ul>
+            <li>Nav item 1</li>
+            <li><a href="#idTwo" on="tap:idTwo.scrollTo">Nav item 2</a></li>
+            <li>Nav item 3</li>
+            <li><a href="#idFour" on="tap:idFour.scrollTo">Nav item 4</a></li>
+            <li>Nav item 5</li>
+            <li>Nav item 6</li>
+        </ul>
+    </amp-sidebar>
+    <div class="header">
+        <!-- navigation bar -->
+        <div class="nav-bar">
+            <!-- <p class="logo">
+                Homepage
+            </p> -->
+            <amp-img src="images/logo.png" width="150" height="40" alt=""></amp-img>
+            <i class="fas fa-bars" style="font-size: 32px" on='tap:sidebar1.toggle'></i>
+        </div>
+        <img src="https://corgi.min-breeder.com/data/handbook/14555/ap_14555_1_15ba6_detail.jpg" alt="">
+    </div>
+
+    <!-- image carousel -->
+    <h1>カルーセル</h1>
+    <amp-carousel id="carousel-with-preview" type="slides"
+        width="100vw"
+        height="300"
+        controls
+        loop
+        autoplay
+        delay="5000"
+        data-next-button-aria-label="Go to next slide"
+        data-previous-button-aria-label="Go to previous slide"
+    >
+        <amp-img src="images/image1.jpg" width="450" height="300" layout="responsive" alt=""></amp-img>
+        <amp-img src="images/image2.jpg" width="450" height="300" layout="responsive" alt=""></amp-img>
+        <amp-img src="images/image3.jpg" width="450" height="300" layout="responsive" alt=""></amp-img>
+    </amp-carousel>
+
+    <!-- twitter -->
+    <h1>Twitter</h1>
+    <amp-twitter width="390" height="330" layout="responsive" data-tweetid="855178606556856320">
+        <blockquote placeholder>
+            <p>What are 5 common misconceptions people often have about AMP? Find out on today&#39;s installment of
+                Amplify:
+                <a href="https://t.co/kaSvV8SQtI">https://t.co/kaSvV8SQtI</a>
+                <a href="https://t.co/Cu9VYOmiKV">pic.twitter.com/Cu9VYOmiKV</a>
+            </p>&mdash; AMP Project (@AMPhtml)
+            <a href="https://twitter.com/AMPhtml/status/855178606556856320">April 20, 2017</a>
+        </blockquote>
+        <div fallback>
+            An error occurred while retrieving the Tweet. It might have been deleted.
+        </div>
+    </amp-twitter>
+
+    <!-- accordion -->
+    <h1>アコーディオン</h1>
+    <amp-accordion animate>
+        <section>
+            <h2>Section 1</h2>
+            <p>Content in section 1.</p>
+        </section>
+        <section>
+            <h2>Section 2</h2>
+            <div>Content in section 2.</div>
+        </section>
+    </amp-accordion>
+
+    <!-- youtube -->
+    <h1>youtube</h1>
+    <amp-youtube width="480" height="270" layout="responsive" data-videoid="lBTCB7yLs8Y">
+    </amp-youtube>
+
+    <!-- form -->
+    <h1>お問い合わせ</h1>
+    <form method="post" action-xhr="https://example.com/subscribe" target="_top">
+        <fieldset>
+            <label>
+                <span>Name:</span>
+                <input type="text" name="name" required>
+            </label>
+            <br>
+            <label>
+                <span>Email:</span>
+                <input type="email" name="email" required>
+            </label>
+            <br>
+            <input type="submit" value="Subscribe">
+        </fieldset>
+        <div submit-success>
+            <template type="amp-mustache">
+                Subscription successful!
+            </template>
+        </div>
+        <div submit-error>
+            <template type="amp-mustache">
+                Subscription failed!
+            </template>
+        </div>
+    </form>
+
+    <div id="target-element">
+    </div>
+  </body>
+</html>
