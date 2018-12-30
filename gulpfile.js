@@ -9,7 +9,7 @@ const rename = require('gulp-rename');
 
 const paths = {
     src: '.',
-    dist: '.'
+    dist: 'dist'
 };
 
 gulp.task('styles', () => {
@@ -28,9 +28,9 @@ gulp.task('styles', () => {
 });
 
 gulp.task('inject-styles', function () {
-    return gulp.src(`${paths.dist}/index.amp_base.html`)
+    return gulp.src(`${paths.src}/index.amp_base.html`)
         // gulp-injectを使いamp.html内のコメントに生成されたcssの内容を挿入する
-        .pipe(inject(gulp.src([`${paths.dist}/css/style.css`]), {
+        .pipe(inject(gulp.src([`${paths.src}/css/style.css`]), {
             starttag: '<!-- inject:inline-style:start -->',
             endtag: '<!-- inject:inline-style:end -->',
             relative: true,
@@ -52,7 +52,7 @@ gulp.task('inject-styles', function () {
                     + styleTagEnd;
             }
         }))
-        .pipe(rename('index.amp.html'))
+        .pipe(rename('index.html'))
         .pipe(gulp.dest(`${paths.dist}`))
 });
 
