@@ -6,11 +6,19 @@ const sourcemaps = require('gulp-sourcemaps');
 const cleanCss = require('gulp-clean-css');
 const runSequence = require('run-sequence');
 const rename = require('gulp-rename');
+const gulpAmpValidator = require('gulp-amphtml-validator');
 
 const paths = {
     src: '.',
     dist: 'dist'
 };
+
+gulp.task('amphtml:validate', () => {
+    return gulp.src('dist/*.html')
+        .pipe(gulpAmpValidator.validate())
+        .pipe(gulpAmpValidator.format())
+        // .pipe(gulpAmpValidator.failAfterError());
+});
 
 gulp.task('styles', () => {
     return gulp.src([`${paths.src}/css/**/*.scss`])
@@ -56,7 +64,7 @@ gulp.task('inject-styles', function () {
         .pipe(gulp.dest(`${paths.dist}`))
 });
 
-gulp.task('ampdev', gulp.series('styles', 'inject-styles', (callback) => {
+gulp.task('ampdev', gulp.series('styles', 'inject-styles', 'amphtml:validate', (callback) => {
    callback();
 }));
 
