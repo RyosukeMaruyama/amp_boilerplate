@@ -9,12 +9,12 @@ const rename = require('gulp-rename');
 const gulpAmpValidator = require('gulp-amphtml-validator');
 
 const paths = {
-    src: '.',
+    src: 'src',
     dist: 'dist'
 };
 
 gulp.task('amphtml:validate', () => {
-    return gulp.src('dist/*.html')
+    return gulp.src(`${paths.src}/index.amp_base.html`)
         .pipe(gulpAmpValidator.validate())
         .pipe(gulpAmpValidator.format())
         // .pipe(gulpAmpValidator.failAfterError());
@@ -69,7 +69,7 @@ gulp.task('ampdev', gulp.series('styles', 'inject-styles', 'amphtml:validate', (
 }));
 
 gulp.task('default', gulp.series('ampdev', (callback) => {
-    gulp.watch('./css/**/*.scss', gulp.series('ampdev'));
-    gulp.watch('./index.amp_base.html', gulp.series('ampdev'));
+    gulp.watch(`${paths.src}/css/**/*.scss`, gulp.series('ampdev'));
+    gulp.watch(`${paths.src}/index.amp_base.html`, gulp.series('ampdev'));
     callback();
 }));
