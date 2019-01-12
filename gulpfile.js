@@ -14,31 +14,38 @@ const paths = {
     dist: 'dist'
 };
 
+/**
+ * Validate html in conformity to AMP
+ */
 gulp.task('amphtml:validate', () => {
     return gulp.src(`${paths.src}/index.amp_base.html`)
         .pipe(gulpAmpValidator.validate())
         .pipe(gulpAmpValidator.format())
-    // .pipe(gulpAmpValidator.failAfterError());
 });
 
+/**
+ * Build sass to css
+ */
 gulp.task('styles', () => {
     return gulp.src([`${paths.src}/css/**/*.scss`])
         .pipe(plumber(
-            {   // エラー抑制
+            {
                 errorHandler: function (err) {
                     console.log(err);
                 }
             }))
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCss({ compatibility: 'ie8' })) // cssを圧縮
+        .pipe(cleanCss({ compatibility: 'ie8' }))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(`${paths.src}/css`));
 });
 
+/**
+ * Inject css to html with inline
+ */
 gulp.task('inject-styles', function () {
     return gulp.src(`${paths.src}/index.amp_base.html`)
-        // gulp-injectを使いamp.html内のコメントに生成されたcssの内容を挿入する
         .pipe(inject(gulp.src([`${paths.src}/css/style.css`]), {
             starttag: '<!-- inject:inline-style:start -->',
             endtag: '<!-- inject:inline-style:end -->',
@@ -48,11 +55,10 @@ gulp.task('inject-styles', function () {
                 const styleTagStart = '<style amp-custom>';
                 const styleTagEnd = '</style>';
 
-                // スタイルの中身をstyle属性内用に加工していきます。
                 let styles = file.contents.toString('utf8');
-                // パスを相対パスを変更する。
+                // Change relative path at css in conformity to dist
                 styles = styles.replace('url(../', 'url(');
-                // sassコンパイル時に生成される行を削除する
+                // Delete unnecessary sting
                 styles = styles.replace(/\/\*\#\ssourceMappingURL\=.*\.map\s\*\//i, '');
                 styles = styles.replace(/\@charset \"utf-8\"\;/i, '').trim();
 
@@ -65,17 +71,26 @@ gulp.task('inject-styles', function () {
         .pipe(gulp.dest(`${paths.dist}`))
 });
 
+/**
+ * Change relative path at html in conformity to dist
+ */
 gulp.task('html-replace', function () {
     return gulp.src(`${paths.dist}/index.html`)
         .pipe(replace('src="../images', 'src="images'))
         .pipe(gulp.dest(`${paths.dist}`))
 });
 
+/**
+ * Move image directory to dist
+ */
 gulp.task('copy-images', function () {
     return gulp.src(`images/**`)
         .pipe(gulp.dest(`${paths.dist}/images`))
 });
 
+/**
+ * Execute build task
+ */
 gulp.task('ampdev', gulp.series('styles', 'inject-styles', 'amphtml:validate', 'html-replace', 'copy-images', (callback) => {
     callback();
 }));
